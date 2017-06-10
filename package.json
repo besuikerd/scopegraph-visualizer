@@ -5,7 +5,7 @@
   "scripts": {
     "watch": "webpack --progress --colors --watch",
     "dev": "webpack-dev-server --content-base src/main -d --progress --colors --port 3000",
-    "build": "webpack --progress --colors"
+    "build": "sbt fastOptJS && webpack --progress --colors && cp target/main.js docs/main.js"
   },
   "author": "besuikerd",
   "dependencies": {
