@@ -1,0 +1,31 @@
+scope graph {
+  scope #-s-1 {
+    declarations {
+      Module{"A" @:1}
+      Module{"B" @:8}
+    }
+  }
+  scope #-module_scope-2 {
+    references {
+      Var{"a" @:11}
+      Module{"A" @:9}
+    }
+    direct edges {
+      P ~ #-s-1
+    }
+    associated declarations {
+      M ~ Module{"B" @:8}
+    }
+  }
+  scope #-module_scope-1 {
+    declarations {
+      Var{"a" @:2}
+    }
+    direct edges {
+      P ~ #-s-1
+    }
+    associated declarations {
+      M ~ Module{"A" @:1}
+    }
+  }
+}
