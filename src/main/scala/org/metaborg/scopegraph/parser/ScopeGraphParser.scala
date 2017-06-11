@@ -47,7 +47,7 @@ trait ScopeGraphParser extends RegexParsers with CTermParser with ImplicitConver
   def scopeName : Parser[ScopeName] = "#-" ~> (varId <~ "-") ~ (varId | intLiteral) ^^ ScopeName
 
   def occurrence : Parser[Occurrence] = occurrenceAt
-  def occurrenceAt : Parser[OccurrenceAt] = namespaceRef ~ ("{" ~> cterm) ~ (occurrenceIndex <~ "}") ^^ OccurrenceAt
+  def occurrenceAt : Parser[OccurrenceAt] = (namespaceRef | success("")) ~ ("{" ~> cterm) ~ (occurrenceIndex <~ "}") ^^ OccurrenceAt
 
   def occurrenceIndex : Parser[OccurrenceIndex] = occurrenceIndexFrom | occurrenceTermIndex
   def occurrenceIndexFrom : Parser[OccurrenceIndexFrom] = "@" ~> scopeName ^^ OccurrenceIndexFrom
