@@ -13,10 +13,17 @@ object ScopeGraphToDot {
 
 
   def scopeGraphToDot(scopeGraph: ScopeGraph): Dot = {
-
-    val statements = scopeGraph.scopeEntries.flatMap(scopeEntryToDotStatements)
+    val statements =
+      List.concat(
+        scopeGraphOptions,
+        scopeGraph.scopeEntries.flatMap(scopeEntryToDotStatements)
+      )
     digraph(statements:_*)
   }
+
+  def scopeGraphOptions: List[DotStatement] = List(
+    attribute('rankdir -> "BT")
+  )
 
   def scopeEntryToDotStatements(scopeEntry: ScopeEntry): List[DotStatement] = scopeEntry match {
     case Scope(name, scopePartEntries) => {
