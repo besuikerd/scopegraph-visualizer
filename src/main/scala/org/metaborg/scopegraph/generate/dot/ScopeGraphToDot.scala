@@ -67,7 +67,12 @@ object ScopeGraphToDot {
     case ImportEdge(pathLabel, occurrence) =>
       List(
         occurrenceToNodeStatement(occurrence),
-        edge(scopeNameToNodeId(scope), occurrenceToNodeId(occurrence), 'label -> pathLabel)
+        edge(
+          scopeNameToNodeId(scope),
+          occurrenceToNodeId(occurrence),
+          'label -> pathLabel,
+          'arrowhead -> "empty"
+        )
       )
   }
 
