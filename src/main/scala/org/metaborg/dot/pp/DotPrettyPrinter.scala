@@ -7,6 +7,7 @@ import org.metaborg.pp.Doc.empty
 object DotPrettyPrinter {
   import Doc._
   import Doc.Implicits._
+  import org.metaborg.util.Implicits._
 
   def ppDot(dot: Dot): Doc = {
     implicit val implicitDot = dot
@@ -76,7 +77,7 @@ object DotPrettyPrinter {
     case HtmlValueLiteral(lit) => lit
   }
 
-  def ppNodeId(nodeId: NodeId): Doc = nodeId.id <> nodeId.port.map(ppPort).getOrElse(empty)
+  def ppNodeId(nodeId: NodeId): Doc = "\"" <> nodeId.id.unquote <> "\"" <> nodeId.port.map(ppPort).getOrElse(empty)
 
   def ppPort(port: Port): Doc = port match {
     case PortCompass(compassPoint) => ":" <> ppCompassPoint(compassPoint)
