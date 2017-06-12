@@ -1,31 +1,36 @@
 scope graph {
-  scope #-s-1 {
+  scope #-s'-2 {
     declarations {
-      Module{"A" @:1}
-      Module{"B" @:8}
+      {"x" @:1} : NumT()
+    }
+    direct edges {
+      P ~ #-s'-1
     }
   }
-  scope #-module_scope-2 {
+  scope #-s'-3 {
+    declarations {
+      {"y" @:4} : NumT()
+    }
+    direct edges {
+      P ~ #-s'-2
+    }
+  }
+  scope #-s'-1 {
+    direct edges {
+      P ~ #-s-1
+    }
+  }
+  scope #-s'-4 {
+    declarations {
+      {"z" @:7} : NumT()
+    }
     references {
-      Var{"a" @:11}
-      Module{"A" @:9}
+      {"x" @:10}
+      {"y" @:12}
+      {"z" @:15}
     }
     direct edges {
-      P ~ #-s-1
-    }
-    associated declarations {
-      M ~ Module{"B" @:8}
-    }
-  }
-  scope #-module_scope-1 {
-    declarations {
-      Var{"a" @:2}
-    }
-    direct edges {
-      P ~ #-s-1
-    }
-    associated declarations {
-      M ~ Module{"A" @:1}
+      P ~ #-s'-3
     }
   }
 }
