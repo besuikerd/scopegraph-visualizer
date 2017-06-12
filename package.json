@@ -6,6 +6,7 @@
     "watch": "webpack --progress --colors --watch",
     "dev": "webpack-dev-server --content-base src/main -d --progress --colors --port 3000",
     "build": "webpack --config webpack.production.config.js --progress --colors",
+    "build-dev": "webpack --progress --colors",
     "build-pages": "./build-pages.sh"
   },
   "author": "besuikerd",
