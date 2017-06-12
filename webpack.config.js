@@ -69,7 +69,7 @@ module.exports = {
     ],
 
     alias: {
-      'scopegraph-visualizer': path.join(__dirname, 'target/scala-2.12/scopegraph-visualizer-fastopt.js')
+      'scopegraph-visualizer': path.join(__dirname, 'js/target/scala-2.12/scopegraph-visualizer-fastopt.js')
     }
   }
 };

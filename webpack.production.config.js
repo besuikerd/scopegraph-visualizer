@@ -8,7 +8,7 @@ console.log(path.join(__dirname, 'target/scala-2.12/scopegraph-visualizer-opt.js
 module.exports = merge(config, {
   resolve: {
     alias: {
-      'scopegraph-visualizer': path.join(__dirname, 'target/scala-2.12/scopegraph-visualizer-opt.js')
+      'scopegraph-visualizer': path.join(__dirname, 'js/target/scala-2.12/scopegraph-visualizer-opt.js')
     }
   },
   plugins: [
