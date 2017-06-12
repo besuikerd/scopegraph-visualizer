@@ -8,7 +8,7 @@ import {
   parseScopegraph,
   scopegraphToDot,
   ppDot
-} from 'scopegraph-visualizer-fastopt';
+} from 'scopegraph-visualizer';
 import Viz from 'viz.js'
 
 import App from './components/App'

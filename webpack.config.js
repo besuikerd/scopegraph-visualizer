@@ -2,8 +2,6 @@ var path = require('path');
 var fs = require('fs');
 var webpack = require('webpack');
 
-var scalajsBuildPath = path.join(__dirname, 'target/scala-2.12');
-
 module.exports = {
   entry: 'index',
 
@@ -17,7 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: [/node_modules/, scalajsBuildPath],
+        exclude: [/node_modules/, /target\/scala-2.12/],
 
         loader: 'babel-loader',
         query: {
@@ -67,12 +65,11 @@ module.exports = {
   resolve: {
     modules: [
       'node_modules',
-      path.join(__dirname, 'src/main/js'),
-      scalajsBuildPath
-    ]
-  },
+      path.join(__dirname, 'src/main/js')
+    ],
 
-  plugins: [
-    // , new webpack.optimize.UglifyJsPlugin()
-  ]
+    alias: {
+      'scopegraph-visualizer': path.join(__dirname, '../target/scala-2.12/scopegraph-visualizer-fastopt.js')
+    }
+  }
 };

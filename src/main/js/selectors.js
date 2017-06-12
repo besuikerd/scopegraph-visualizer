@@ -1,6 +1,6 @@
 import {createSelector} from 'reselect';
 
-import {parseScopegraph, scopegraphToDot, ppDot} from 'scopegraph-visualizer-fastopt'
+import {parseScopegraph, scopegraphToDot, ppDot} from 'scopegraph-visualizer'
 import Viz from 'viz.js';
 
 export const getScopegraphText = state => state.scopegraphText;
