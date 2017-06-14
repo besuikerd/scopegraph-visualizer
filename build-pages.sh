@@ -20,7 +20,7 @@ if ! hash sbt 2>/dev/null; then
   exit 1
 fi
 
-sbt clean fullOptJS
+sbt -batch clean fullOptJS
 cd webapp
 $JS_BUILD_CMD build
 cd ..
