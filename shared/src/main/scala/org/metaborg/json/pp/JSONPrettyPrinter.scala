@@ -11,24 +11,30 @@ object JSONPrettyPrinter {
     case jsonObject: JSONObject => ppJSONObject(jsonObject)
     case jsonArray: JSONArray => ppJSONArray(jsonArray)
     case jsonString: JSONString => ppJSONString(jsonString)
-    case jsonNumber: JSONNumber => ppJSONNumber(jsonNumber)
+    case jsonNumber: JSONNumber[_] => ppJSONNumber(jsonNumber)
     case jsonBoolean: JSONBoolean => ppJSONBoolean(jsonBoolean)
     case jsonNull: JSONNull => ppJSONNull(jsonNull)
   }
 
   def ppJSONObject(jsonObject: JSONObject): Doc =
-    "{" $$ nest(2, sep(jsonObject.pairs.map(ppPair))) $$ "}"
+    if(jsonObject.pairs.isEmpty)
+      "{}"
+    else
+      "{" <> newline <> nest(2, group(jsonObject.pairs.map(ppPair), "," <> newline)) <> newline <> "}"
 
   def ppPair(pair: (String, JSON)): Doc =
-    "\"" <> pair._1 <> "\"" <> " : " <> ppJSON(pair._2)
+    "\"" <> pair._1 <> "\"" <> ": " <> ppJSON(pair._2)
 
   def ppJSONArray(jsonArray: JSONArray): Doc =
-    "[" $$ nest(2, sep(jsonArray.values.map(ppJSON))) $$ "]"
+    if(jsonArray.values.isEmpty)
+      "[]"
+    else
+      "[" <> newline <> nest(2, group(jsonArray.values.map(ppJSON), "," <> newline)) <> newline <> "]"
 
   def ppJSONString(jsonString: JSONString): Doc =
     jsonString.s
 
-  def ppJSONNumber(jsonNumber: JSONNumber): Doc =
+  def ppJSONNumber(jsonNumber: JSONNumber[_]): Doc =
     jsonNumber.n.toString
 
   def ppJSONBoolean(jsonBoolean: JSONBoolean) : Doc =
