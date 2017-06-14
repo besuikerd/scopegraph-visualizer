@@ -9,6 +9,7 @@ import org.metaborg.scopegraph.ast.ScopeGraph
 import org.metaborg.scopegraph.generate.dot.ScopeGraphToDot
 import org.metaborg.scopegraph.generate.json.ScopegraphToJSON
 import org.metaborg.scopegraph.parser.ScopeGraphParser
+import org.metaborg.vis.ScopegraphToVis
 
 import scala.scalajs.js.annotation.JSExportTopLevel
 
@@ -33,4 +34,8 @@ object JavascriptExports {
 
   @JSExportTopLevel("scopegraphToJSON")
   def scopegraphToJSON(scopeGraph: ScopeGraph): JSON = ScopegraphToJSON.scopegraphToJSON(scopeGraph)
+
+  @JSExportTopLevel("scopegraphToVis")
+  def scopegraphToVis(scopeGraph: ScopeGraph): JSON = ScopegraphToVis.scopegraphToVis(scopeGraph)
 }
+

@@ -29,5 +29,11 @@ object JSON{
     implicit def num2JSON(n: Double): JSONNumber[Double] = num(n)
     implicit def int2JSON(i : Int): JSONNumber[Int] = num(i)
     implicit def nil2JSON(nullValue: Nothing): JSONNull = nil
+
+    implicit class RichJSONObject(val jsonObject: JSONObject) extends AnyRef{
+      def merge(entries: List[(String, JSON)]): JSONObject = obj(jsonObject.pairs ++ entries)
+      def merge(entries: (String, JSON)*): JSONObject = obj(jsonObject.pairs ++ entries)
+      def merge(that: JSONObject) = obj(jsonObject.pairs ++ that.pairs)
+    }
   }
 }
