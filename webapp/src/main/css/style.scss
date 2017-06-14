@@ -17,15 +17,15 @@
   height: 100%;
 }
 
-.dot-container {
+.textual-container {
   height: 100%;
 }
 
-.dot-container .card{
+.textual-container .card{
   height: 100%;
 }
 
-.dot-source-container{
+.textual-source-container{
   height: 100%;
 }
 
@@ -36,18 +36,14 @@
   font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
 }
 
-.dot-actions{
+.textual-actions-buttons{
   position: absolute;
   right: 5px;
 }
 
-.svg-container{
-  max-height: 200px;
-}
-
-.svg-holder{
+.scopegraph-view-container{
   width: 100%;
-  height: 200px;
+  max-height: 600px;
 }
 
 .scopegraph-image{

@@ -1,0 +1,156 @@
+{
+  "scopes": [
+    {
+      "id": {
+        "name": "s'",
+        "index": "2"
+      },
+      "declarations": [
+        {
+          "occurrence": {
+            "namespace": "",
+            "name": "x",
+            "index": {
+              "prefix": "",
+              "index": 1
+            }
+          },
+          "type": {
+            "name": "NumT",
+            "subTerms": []
+          }
+        }
+      ],
+      "references": [],
+      "directEdges": [
+        {
+          "label": "P",
+          "scopeName": {
+            "name": "s'",
+            "index": "1"
+          }
+        }
+      ],
+      "importEdges": [],
+      "assocEdges": []
+    },
+    {
+      "id": {
+        "name": "s'",
+        "index": "3"
+      },
+      "declarations": [
+        {
+          "occurrence": {
+            "namespace": "",
+            "name": "y",
+            "index": {
+              "prefix": "",
+              "index": 4
+            }
+          },
+          "type": {
+            "name": "NumT",
+            "subTerms": []
+          }
+        }
+      ],
+      "references": [],
+      "directEdges": [
+        {
+          "label": "P",
+          "scopeName": {
+            "name": "s'",
+            "index": "2"
+          }
+        }
+      ],
+      "importEdges": [],
+      "assocEdges": []
+    },
+    {
+      "id": {
+        "name": "s'",
+        "index": "1"
+      },
+      "declarations": [],
+      "references": [],
+      "directEdges": [
+        {
+          "label": "P",
+          "scopeName": {
+            "name": "s",
+            "index": "1"
+          }
+        }
+      ],
+      "importEdges": [],
+      "assocEdges": []
+    },
+    {
+      "id": {
+        "name": "s'",
+        "index": "4"
+      },
+      "declarations": [
+        {
+          "occurrence": {
+            "namespace": "",
+            "name": "z",
+            "index": {
+              "prefix": "",
+              "index": 7
+            }
+          },
+          "type": {
+            "name": "NumT",
+            "subTerms": []
+          }
+        }
+      ],
+      "references": [
+        {
+          "occurrence": {
+            "namespace": "",
+            "name": "x",
+            "index": {
+              "prefix": "",
+              "index": 10
+            }
+          }
+        },
+        {
+          "occurrence": {
+            "namespace": "",
+            "name": "y",
+            "index": {
+              "prefix": "",
+              "index": 12
+            }
+          }
+        },
+        {
+          "occurrence": {
+            "namespace": "",
+            "name": "z",
+            "index": {
+              "prefix": "",
+              "index": 15
+            }
+          }
+        }
+      ],
+      "directEdges": [
+        {
+          "label": "P",
+          "scopeName": {
+            "name": "s'",
+            "index": "3"
+          }
+        }
+      ],
+      "importEdges": [],
+      "assocEdges": []
+    }
+  ]
+}

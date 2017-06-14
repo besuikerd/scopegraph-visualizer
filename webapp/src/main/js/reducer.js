@@ -1,17 +1,20 @@
 import {
-  SET_SCOPEGRAPH
+  SET_SCOPEGRAPH,
+  SET_OUTPUT_FORMAT,
+  DOT_FORMAT,
+  JSON_FORMAT
 } from './actions'
 
 import initialScopegraph from '../resources/initial.scopegraph';
 
 const initialState = {
   scopegraphText: initialScopegraph,
-  dot: '',
-  error: ''
+  format: DOT_FORMAT
 };
 
 const reducerActions = {};
-reducerActions[SET_SCOPEGRAPH] = setScopegraphText
+reducerActions[SET_SCOPEGRAPH] = setScopegraphText;
+reducerActions[SET_OUTPUT_FORMAT] = setOutputFormat;
 reducerActions['@@INIT'] = function(state) { return state; }
 
 export default function reducer(state = initialState, action){
@@ -26,4 +29,10 @@ export default function reducer(state = initialState, action){
 
 function setScopegraphText(state, action){
   return Object.assign({}, state, {scopegraphText: action.scopegraph});
+}
+
+function setOutputFormat(state, action){
+  return Object.assign({}, state, {
+    format: action.format
+  })
 }

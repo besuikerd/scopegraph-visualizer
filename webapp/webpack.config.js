@@ -7,7 +7,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'target'),
-    publicPath: 'assets/build/',
+    publicPath: '/assets/build/',
     filename: '[name].js',
     chunkFilename: '[chunkhash].js'
   },
@@ -69,7 +69,7 @@ module.exports = {
     ],
 
     alias: {
-      'scopegraph-visualizer': path.join(__dirname, 'js/target/scala-2.12/scopegraph-visualizer-fastopt.js')
+      'scopegraph-visualizer': path.join(__dirname, '../js/target/scala-2.12/scopegraph-visualizer-fastopt.js')
     }
   }
 };
