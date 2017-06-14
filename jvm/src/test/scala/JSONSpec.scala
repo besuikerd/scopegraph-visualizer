@@ -1,7 +1,12 @@
 import org.metaborg.json.ast.JSON
 import org.metaborg.json.pp.JSONPrettyPrinter
 import org.metaborg.pp.Doc
+import org.metaborg.scopegraph.ast.ScopeGraph
+import org.metaborg.scopegraph.generate.json.ScopegraphToJSON
+import org.metaborg.scopegraph.parser.ScopeGraphParser
 import org.scalatest.FlatSpec
+
+import scala.io.Source
 
 class JSONSpec extends FlatSpec{
   import Doc.Implicits._
@@ -41,4 +46,20 @@ class JSONSpec extends FlatSpec{
     val pp = JSONPrettyPrinter.ppJSON(json).pp
     assertResult(expected)(pp)
   }
+
+  "scopegraph" should "be converted to json" in {
+
+
+    val source = Source.fromResource("test1.scopegraph").mkString
+    val scopegraph: ScopeGraph = ScopeGraphParser.parse(source).fold(
+      error => fail(error),
+      identity
+    )
+    val json = ScopegraphToJSON.scopegraphToJSON(scopegraph)
+    val expected = Source.fromResource("test1.json").mkString
+    assertResult(expected)(JSONPrettyPrinter.ppJSON(json).pp)
+  }
+
+
+
 }

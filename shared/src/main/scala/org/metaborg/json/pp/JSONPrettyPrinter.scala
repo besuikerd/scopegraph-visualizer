@@ -6,6 +6,7 @@ import org.metaborg.pp.Doc
 object JSONPrettyPrinter {
   import Doc._
   import Doc.Implicits._
+  import org.metaborg.util.Implicits._
 
   def ppJSON(json: JSON): Doc = json match {
     case jsonObject: JSONObject => ppJSONObject(jsonObject)
@@ -32,7 +33,13 @@ object JSONPrettyPrinter {
       "[" <> newline <> nest(2, group(jsonArray.values.map(ppJSON), "," <> newline)) <> newline <> "]"
 
   def ppJSONString(jsonString: JSONString): Doc =
-    jsonString.s
+    "\"" <> jsonEscape(jsonString.s) <> "\""
+
+  val jsonEscapeRegex = """(["\\])""".r
+
+  def jsonEscape(s: String): String =
+    jsonEscapeRegex.replaceAllIn(s, """\\$1""")
+
 
   def ppJSONNumber(jsonNumber: JSONNumber[_]): Doc =
     jsonNumber.n.toString

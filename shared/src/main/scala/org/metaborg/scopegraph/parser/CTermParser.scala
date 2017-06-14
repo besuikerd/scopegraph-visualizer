@@ -6,6 +6,8 @@ import org.metaborg.scopegraph.ast._
 import scala.util.matching.Regex
 
 trait CTermParser extends RegexParsers with ImplicitConversions{
+  import org.metaborg.util.Implicits._
+
   def cterm: Parser[CTerm] =
     cvar | cons | tuple | list | intTerm | stringTerm
 
@@ -19,7 +21,7 @@ trait CTermParser extends RegexParsers with ImplicitConversions{
   def cons : Parser[CCons] = opId ~ ("(" ~> repsep(cterm, ",") <~ ")") ^^ CCons
 
   def intTerm: Parser[IntTerm] = intLiteral.map(_.toInt) ^^ IntTerm
-  def stringTerm: Parser[StringTerm] = stringLiteral ^^ StringTerm
+  def stringTerm: Parser[StringTerm] = stringLiteral.map(_.unquote) ^^ StringTerm
 
   def stringLiteral: Parser[String] =
     ("\""+"""([^"\x00-\x1F\x7F\\]|\\[\\'"bfnrt]|\\u[a-fA-F0-9]{4})*"""+"\"").r
