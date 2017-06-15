@@ -11,10 +11,10 @@ object DotPrettyPrinter {
 
   def ppDot(dot: Dot): Doc = {
     implicit val implicitDot = dot
-    ppGraphType(dot.graphType) <> "{" $$
+    withHimit(10000, ppGraphType(dot.graphType) <> "{" $$
       nest(2, sep(dot.statements.map(ppDotStatement))) $$
       "}"
-
+    )
   }
 
   def ppDotStatement(dotStatement: DotStatement)(implicit dot: Dot): Doc = dotStatement match {
@@ -70,10 +70,15 @@ object DotPrettyPrinter {
 
   def ppAttribute(attribute: Attribute): Doc = attribute match {
     case AttributeText(key, value) => key <> "=\"" <> value <> "\""
-    case AttributeHtml(key, value) => key <> "=" <> ppHtmlValue(value)
+    case AttributeHtml(key, values) =>
+      val vals = values.map(ppHtmlValue).foldLeft[Doc](empty){case (acc, value) => acc <> value}
+      key <> "=" <> "<" <> vals <> ">"
   }
 
   def ppHtmlValue(htmlValue: HtmlValue): Doc = htmlValue match {
+    case HtmlValueTag(t, attributes, children) =>
+      val attrs = attributes.foldLeft[Doc](empty){case (acc, (k, v)) => acc <> " " <> k <> "=" <> "\"" <> v <> "\""}
+      s"<$t" <> attrs <> ">" <> nest(2, sep(children.map(ppHtmlValue))) <> s"</$t>"
     case HtmlValueLiteral(lit) => lit
   }
 

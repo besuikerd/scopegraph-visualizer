@@ -16,7 +16,7 @@ class DocContext(
   var v: Int,
   var hOffset: Int,
   val builder: StringBuilder,
-  val hLimit: Int = 80
+  var hLimit: Int = 80
 )
 
 object DocPrinter{
@@ -70,6 +70,12 @@ object DocPrinter{
       case Newline() => {
         crnl(ctx)
       }
+      case WithHLimit(hLimit, doc) => {
+        val oldHLimit = ctx.hLimit
+        ctx.hLimit = hLimit
+        pp(doc, ctx)
+        ctx.hLimit = oldHLimit
+      }
       case Empty() =>
     }
   }
@@ -95,6 +101,7 @@ case class Sep(docs: List[Doc]) extends Doc
 case class Nest(n: Int, doc: Doc) extends Doc
 case class Empty() extends Doc
 case class Newline() extends Doc
+case class WithHLimit(hLimit: Int, doc: Doc) extends Doc
 object Doc{
   def text(s: String): Doc = Text(s)
   def sep(docs: List[Doc]): Doc = Sep(docs)
@@ -108,6 +115,7 @@ object Doc{
       docs.reverse.reduceLeft[Doc]{
         case (acc, cur) => cur <> sep <> acc
       }
+  def withHimit(hLimit: Int, doc: Doc): Doc = WithHLimit(hLimit, doc)
   val newline: Doc = Newline()
   val empty = Empty()
 

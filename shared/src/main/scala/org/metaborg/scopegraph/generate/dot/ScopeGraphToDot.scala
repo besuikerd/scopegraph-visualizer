@@ -96,7 +96,19 @@ object ScopeGraphToDot {
       val nodeId = occurrenceToNodeId(occurrence)
       node(
         nodeId,
-        'label -> html(s"""<${term}<sub><font point-size="8">$idx</font></sub>>"""),
+        'label -> html(
+          literal(term),
+          tag("sub",
+            children = List(
+              tag("font",
+                attributes = List("point-size" -> "8"),
+                children = List(
+                  literal(idx)
+                )
+              )
+            )
+          )
+        ),
         shapeRecord
       )
   }
