@@ -113,6 +113,7 @@ object Doc{
 
   object Implicits {
     implicit def string2Doc(s: String) = text(s)
+    implicit def numeric2Doc[N](n: N)(implicit numeric: Numeric[N]) = text(n.toString)
 
     implicit class RichDoc(val doc: Doc) extends AnyRef{
       def pp: String = DocPrinter.pp(doc)
