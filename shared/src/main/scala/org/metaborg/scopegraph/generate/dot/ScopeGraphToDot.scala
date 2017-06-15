@@ -92,12 +92,17 @@ object ScopeGraphToDot {
   def occurrenceToNodeStatement(occurrence: Occurrence): NodeStatement = occurrence match {
     case OccurrenceAt(namespace, cterm, occurrenceIndex) =>
       val term = ppCTerm(cterm).pp.unquote
+      val prefix =
+        if(namespace.nonEmpty)
+          s"""$namespace\\{$term\\}"""
+        else
+          term
       val idx = ppOccurrenceIndexSimple(occurrenceIndex)
       val nodeId = occurrenceToNodeId(occurrence)
       node(
         nodeId,
         'label -> html(
-          literal(term),
+          literal(prefix),
           tag("sub",
             children = List(
               tag("font",
