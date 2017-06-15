@@ -74,14 +74,14 @@ object ScopegraphToVis {
 
   def processDeclEntry(visDataset: VisDataset, declEntry: DeclEntry)(implicit scopeNode: VisNode): VisDataset = declEntry match {
     case Decl(occurrence, declType) =>
-      val node = VisNode(visDataset.nodes.length + 1, ScopeGraphPrettyPrinter.ppOccurrence(occurrence).pp, DeclNodeType(occurrence))
+      val node = VisNode(visDataset.nodes.length + 1, ScopeGraphPrettyPrinter.ppHumanReadableOccurrence(occurrence).pp, DeclNodeType(occurrence))
       val edge = VisEdge(scopeNode.id, node.id, DeclEdgeType())
       visDataset.copy(nodes = node :: visDataset.nodes, edges = edge :: visDataset.edges)
   }
 
   def processRefEntry(visDataset: VisDataset, refEntry: RefEntry)(implicit scopeNode: VisNode): VisDataset = refEntry match {
     case Ref(occurrence) =>
-      val node = VisNode(visDataset.nodes.length + 1, ScopeGraphPrettyPrinter.ppOccurrence(occurrence).pp, RefNodeType(occurrence))
+      val node = VisNode(visDataset.nodes.length + 1, ScopeGraphPrettyPrinter.ppHumanReadableOccurrence(occurrence).pp, RefNodeType(occurrence))
       val edge = VisEdge(node.id, scopeNode.id, RefEdgeType())
       visDataset.copy(nodes = node :: visDataset.nodes, edges = edge :: visDataset.edges)
   }

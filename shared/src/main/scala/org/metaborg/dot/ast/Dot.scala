@@ -1,5 +1,7 @@
 package org.metaborg.dot.ast
 
+import org.metaborg.dot.ast.HtmlValue.HtmlAttribute
+
 
 case class Dot(strict: Boolean, graphType: GraphType, statements: List[DotStatement])
 
@@ -24,10 +26,14 @@ case class AttributeTypeEdge() extends AttributeType
 
 sealed trait Attribute
 case class AttributeText(key: String, value: String) extends Attribute
-case class AttributeHtml(key: String, value: HtmlValue) extends Attribute  //TODO proper html format
+case class AttributeHtml(key: String, values: List[HtmlValue]) extends Attribute  //TODO proper html format
 
 sealed trait HtmlValue
-case class HtmlValueLiteral(lit: String) extends HtmlValue
+object HtmlValue{
+  type HtmlAttribute = (String, String)
+}
+case class HtmlValueTag(tag: String, attributes: List[HtmlAttribute], children: List[HtmlValue]) extends HtmlValue
+case class HtmlValueLiteral(literal: String) extends HtmlValue
 
 case class SubGraph(name: Option[String], statements: List[DotStatement]) extends DotStatement
 
@@ -95,12 +101,18 @@ trait DotDsl{
   def subgraph(name: String, stmts: DotStatement*): SubGraph = SubGraph(Some(name), stmts.toList)
   def subgraph(stmts: DotStatement*): SubGraph = SubGraph(None, stmts.toList)
 
-  def html(lit: String): HtmlValue = HtmlValueLiteral(lit)
+
+  def html(values: HtmlValue*): List[HtmlValue] = values.toList
+//  def tag(t: String)(children: HtmlValue*): HtmlValueTag = HtmlValueTag(t, List.empty, children.toList)
+  def tag(t: String, attributes: List[HtmlAttribute] = List.empty,  children: List[HtmlValue] = List.empty): HtmlValue = HtmlValueTag(t, attributes, children)
+//  def tag(t: String)(attributes: HtmlAttribute*): HtmlValue = HtmlValueTag(t, attributes.toList, List.empty)
+  def literal(lit: String): HtmlValueLiteral = HtmlValueLiteral(lit)
+
 
   def shape(value: String): Attribute = 'shape -> value
   val shapeRecord: Attribute = shape("record")
 
-  implicit def kvToHtmlAttribute(tpl: (Symbol, HtmlValue)): Attribute = AttributeHtml(tpl._1.name, tpl._2)
+  implicit def kvToHtmlAttribute(tpl: (Symbol, List[HtmlValue])): Attribute = AttributeHtml(tpl._1.name, tpl._2)
   implicit def kvToTextAttribute(tpl: (Symbol, String)): Attribute = AttributeText(tpl._1.name, tpl._2)
   implicit def kvToEdge(tpl: (String, String)): EdgeStatement = edge(tpl._1, tpl._2)
 }
