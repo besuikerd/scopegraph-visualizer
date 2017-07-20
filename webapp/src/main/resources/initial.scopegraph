@@ -1,0 +1,36 @@
+scope graph {
+  scope #-s'-2 {
+    declarations {
+      {"x" @:1} : NumT()
+    }
+    direct edges {
+      P ~ #-s'-1
+    }
+  }
+  scope #-s'-3 {
+    declarations {
+      {"y" @:4} : NumT()
+    }
+    direct edges {
+      P ~ #-s'-2
+    }
+  }
+  scope #-s'-1 {
+    direct edges {
+      P ~ #-s-1
+    }
+  }
+  scope #-s'-4 {
+    declarations {
+      {"z" @:7} : NumT()
+    }
+    references {
+      {"x" @:10}
+      {"y" @:12}
+      {"z" @:15}
+    }
+    direct edges {
+      P ~ #-s'-3
+    }
+  }
+}

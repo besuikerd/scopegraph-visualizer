@@ -7,7 +7,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'target'),
-    publicPath: 'assets/build/',
+    publicPath: '/assets/build/',
     filename: '[name].js',
     chunkFilename: '[chunkhash].js'
   },
@@ -15,7 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: [/node_modules/, /target\/scala-2.12/],
+        exclude: [/node_modules/, path.join(__dirname, '../js/target/scala-2.12/')],
 
         loader: 'babel-loader',
         query: {
@@ -30,10 +30,7 @@ module.exports = {
         }, {
           loader: "css-loader"
         }, {
-          loader: "sass-loader",
-          options: {
-            includePaths: ["absolute/path/a", "absolute/path/b"]
-          }
+          loader: "sass-loader"
         }]
       },
       {
@@ -69,7 +66,7 @@ module.exports = {
     ],
 
     alias: {
-      'scopegraph-visualizer': path.join(__dirname, 'js/target/scala-2.12/scopegraph-visualizer-fastopt.js')
+      'scopegraph-visualizer': path.join(__dirname, '../js/target/scala-2.12/scopegraph-visualizer-fastopt.js')
     }
   }
 };

@@ -96,7 +96,19 @@ object ScopeGraphToDot {
       val nodeId = occurrenceToNodeId(occurrence)
       node(
         nodeId,
-        'label -> html(s"""<${term}<sub><font point-size="8">$idx</font></sub>>"""),
+        'label -> html(
+          literal(term),
+          tag("sub",
+            children = List(
+              tag("font",
+                attributes = List("point-size" -> "8"),
+                children = List(
+                  literal(idx)
+                )
+              )
+            )
+          )
+        ),
         shapeRecord
       )
   }
@@ -110,7 +122,7 @@ object ScopeGraphToDot {
 
   def ppOccurrenceIndexSimple(occurrenceIndex: OccurrenceIndex): String = occurrenceIndex match {
     case OccurrenceIndexFrom(scope) => ppScopeName(scope).pp
-    case OccurrenceTermIndex(prefix, termIndex) => prefix + termIndex
+    case OccurrenceTermIndex(prefix, termIndex) => termIndex.toString
   }
 
   def scopeNameToNodeId(scopeName: ScopeName): NodeId = nodeId(ppScopeName(scopeName).pp)
