@@ -44,20 +44,22 @@ trait ScopeGraphParser extends RegexParsers with CTermParser with ImplicitConver
   def assocEntry : Parser[AssocEntry] = assocEdge
   def assocEdge : Parser[AssocEdge] = labelTilde ~ occurrence ^^ AssocEdge
 
-  def scopeName : Parser[ScopeName] = "#-" ~> (varId <~ "-") ~ (varId | intLiteral) ^^ ScopeName
+  def scopeName : Parser[ScopeName] = ("#" ~> str <~ "-") ~ (str <~ "-") ~ str ^^ ScopeName
 
   def occurrence : Parser[Occurrence] = occurrenceAt
   def occurrenceAt : Parser[OccurrenceAt] = (namespaceRef | success("")) ~ ("{" ~> cterm) ~ (occurrenceIndex <~ "}") ^^ OccurrenceAt
 
   def occurrenceIndex : Parser[OccurrenceIndex] = occurrenceIndexFrom | occurrenceTermIndex
   def occurrenceIndexFrom : Parser[OccurrenceIndexFrom] = "@" ~> scopeName ^^ OccurrenceIndexFrom
-  def occurrenceTermIndex : Parser[OccurrenceTermIndex] = ("@" ~> (varId | "") <~ ":") ~ intLiteral.map(_.toInt) ^^ OccurrenceTermIndex
+  def occurrenceTermIndex : Parser[OccurrenceTermIndex] = ("@" ~> (str | "") <~ ":") ~ intLiteral.map(_.toInt) ^^ OccurrenceTermIndex
 
   def block[A](p: Parser[A]): Parser[A] = "{" ~> p <~ "}"
   def blockRep[A](p:Parser[A]):Parser[List[A]] = block(rep(p))
 
   def labelId : Regex = """[A-Z]+""".r
   def labelTilde = labelId <~ "~"
+
+  def str: Regex = """[\w'\.]*""".r
 
   val namespaceRef : Regex = """[A-Z][a-zA-Z0-9]*""".r
 }

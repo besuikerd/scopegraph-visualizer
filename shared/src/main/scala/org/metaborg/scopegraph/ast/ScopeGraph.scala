@@ -76,5 +76,4 @@ sealed trait OccurrenceIndex
 case class OccurrenceIndexFrom(scopeName: ScopeName) extends OccurrenceIndex
 case class OccurrenceTermIndex(prefix: String, termIndex: Int) extends OccurrenceIndex
 
-
-case class ScopeName(name: String, index: String)
+case class ScopeName(file: String, name: String, index: String)

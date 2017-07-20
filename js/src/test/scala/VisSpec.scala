@@ -15,4 +15,6 @@ class VisSpec extends FlatSpec{
     val json = ScopegraphToVis.visDataSetToJSON(visDataset)
     val pp = JSONPrettyPrinter.ppJSON(json).pp
   }
+
+
 }

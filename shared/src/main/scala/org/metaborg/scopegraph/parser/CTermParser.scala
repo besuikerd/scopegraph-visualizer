@@ -29,5 +29,5 @@ trait CTermParser extends RegexParsers with ImplicitConversions{
 
   def intLiteral : Regex = """\d+""".r
   def opId: Regex = "[A-Z][a-zA-Z0-9\\_]*".r
-  def varId : Regex = """[a-z][a-zA-Z0-9\_]*[\']*""".r
+  def varId : Regex = """[a-z][a-zA-Z0-9_]*[\']*""".r
 }

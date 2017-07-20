@@ -122,7 +122,7 @@ object ScopeGraphToDot {
 
   def ppOccurrenceIndexSimple(occurrenceIndex: OccurrenceIndex): String = occurrenceIndex match {
     case OccurrenceIndexFrom(scope) => ppScopeName(scope).pp
-    case OccurrenceTermIndex(prefix, termIndex) => prefix + termIndex
+    case OccurrenceTermIndex(prefix, termIndex) => termIndex.toString
   }
 
   def scopeNameToNodeId(scopeName: ScopeName): NodeId = nodeId(ppScopeName(scopeName).pp)

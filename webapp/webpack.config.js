@@ -15,7 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: [/node_modules/, /target\/scala-2.12/],
+        exclude: [/node_modules/, path.join(__dirname, '../js/target/scala-2.12/')],
 
         loader: 'babel-loader',
         query: {
@@ -30,10 +30,7 @@ module.exports = {
         }, {
           loader: "css-loader"
         }, {
-          loader: "sass-loader",
-          options: {
-            includePaths: ["absolute/path/a", "absolute/path/b"]
-          }
+          loader: "sass-loader"
         }]
       },
       {
